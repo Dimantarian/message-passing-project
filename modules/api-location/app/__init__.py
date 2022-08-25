@@ -6,6 +6,7 @@ from flask_sqlalchemy import SQLAlchemy
 db = SQLAlchemy()
 
 # comment to trigger
+# comment 2
 
 
 def create_app(env=None):
