@@ -34,6 +34,6 @@ jobs:
         uses: docker/build-push-action@v3
         with:
           context: .
-          file: modules/api-location/Dockerfile
+          file: message-passing-project/modules/api-location/Dockerfile
           push: true
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/api-location:latest
