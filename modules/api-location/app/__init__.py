@@ -8,6 +8,7 @@ db = SQLAlchemy()
 # comment to trigger
 # comment 2
 # comment 3
+# comment 4
 
 
 def create_app(env=None):
