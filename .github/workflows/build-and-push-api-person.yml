@@ -1,4 +1,4 @@
-name: api connection docker CI
+name: api person docker CI
 
 
 env:
