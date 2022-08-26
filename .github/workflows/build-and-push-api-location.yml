@@ -1,39 +1,55 @@
-name: api location docker CI
+name: api connection docker CI
+
+
+env:
+  MODULE: api-location
 
 on:
   push:
     branches:
       - master
     paths:
-      - modules/api-location/**
+      - modules/$MODULE/**
     
   pull_request:
     branches:
       - master
     paths:
-      - modules/api-location/**
+      - modules/$MODULE/**
 
 jobs:
-  docker:
+  CI:
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout MODULE
       - uses: actions/checkout@v3
-      -
-        name: Set up QEMU
+      
+      - name: Set up Python environment
+        uses: actions/setup-python@v2
+        with:
+          python-version: "3.7"
+      
+      - name: flake8 Lint
+        uses: py-actions/flake8@v2
+        with:
+          max-line-length: "100"
+          path: "modules/$MODULE/"
+        
+      - name: Set up QEMU
         uses: docker/setup-qemu-action@v2
-      -
-        name: Set up Docker Buildx
+      
+      - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v2
-      -
-        name: Login to DockerHub
+      
+      - name: Login to DockerHub
         uses: docker/login-action@v2
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
-      -
-        name: Build and push
+      
+      - name: Build and push
         uses: docker/build-push-action@v3
         with:
-          context: ./modules/api-location/
+          context: ./modules/api-connection/
           push: true
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/api-location:latest
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/$MODULE:latest
