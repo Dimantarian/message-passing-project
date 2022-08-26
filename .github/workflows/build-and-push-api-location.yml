@@ -1,9 +1,5 @@
 name: api location docker CI
 
-
-env:
-  MODULE: api-location
-
 on:
   push:
     branches:

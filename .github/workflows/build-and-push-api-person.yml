@@ -1,20 +1,17 @@
 name: api person docker CI
 
-
-env:
-  MODULE: api-person
 on:
   push:
     branches:
       - master
     paths:
-      - modules/$MODULE/**
+      - modules/api-person/**
     
   pull_request:
     branches:
       - master
     paths:
-      - modules/$MODULE/**
+      - modules/api-person/**
 
 jobs:
   CI:
@@ -32,7 +29,7 @@ jobs:
         uses: py-actions/flake8@v2
         with:
           max-line-length: "100"
-          path: "modules/$MODULE/"
+          path: "modules/api-person/"
         
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v2
@@ -49,6 +46,6 @@ jobs:
       - name: Build and push
         uses: docker/build-push-action@v3
         with:
-          context: ./modules/api-connection/
+          context: ./modules/api-person/
           push: true
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/$MODULE:latest
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/api-person:latest
