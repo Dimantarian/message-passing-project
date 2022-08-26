@@ -31,3 +31,5 @@ class LocationResource(Resource):
     def get(self, location_id) -> Location:
         location: Location = LocationService.retrieve(location_id)
         return location
+
+# adding a comment to test
