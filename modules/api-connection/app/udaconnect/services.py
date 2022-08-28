@@ -89,7 +89,9 @@ class PersonService:
 
     @staticmethod
     def retrieve(person_id: int) -> Person:
-        person = db.session.query(Person).get(person_id)
+        p = requests.get(
+            f"http://udaconnect-api-person:5000/api/persons/{person_id}").json()
+        person = Person(p)
         return person
 
     @staticmethod
