@@ -1,0 +1,15 @@
+syntax = "proto3";
+
+import "google/protobuf/timestamp.proto";
+
+message Location {
+    int64 person_id = 1;
+    string longitude = 2;
+    string latitude = 3;
+    google.protobuf.Timestamp creation_time = 4;
+}
+
+service LocationService {
+    rpc Create(Location) returns (Location);
+}
+
