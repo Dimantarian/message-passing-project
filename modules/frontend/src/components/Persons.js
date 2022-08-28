@@ -5,6 +5,7 @@ class Persons extends Component {
   constructor(props) {
     super(props);
     // TODO: endpoint should be abstracted into a config variable
+    // This will only work if the app is accessed from the host machine / the apis are made public 
     this.endpoint_url = "http://localhost:30006/api/persons";
     this.state = {
       persons: [],
