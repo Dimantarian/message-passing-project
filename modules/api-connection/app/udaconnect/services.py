@@ -98,7 +98,6 @@ class PersonService:
     def retrieve_all() -> List[Person]:
         persons = requests.get(
             "http://udaconnect-api-person:5000/api/persons").json()
-        print(persons)
         person_list = [Person(p) for p in persons]
 
         return person_list
