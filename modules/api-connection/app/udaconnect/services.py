@@ -86,7 +86,6 @@ class ConnectionService:
 
 
 class PersonService:
-
     @staticmethod
     def retrieve(person_id: int) -> Person:
         p = requests.get(
