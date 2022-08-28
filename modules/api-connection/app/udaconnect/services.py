@@ -82,7 +82,6 @@ class ConnectionService:
                         person=person_map[exposed_person_id], location=location,
                     )
                 )
-
         return result
 
 
