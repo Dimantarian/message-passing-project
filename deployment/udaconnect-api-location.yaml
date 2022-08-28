@@ -4,6 +4,7 @@ metadata:
   labels:
     service: udaconnect-api-location
   name: udaconnect-api-location
+  namespace: udaconnect
 spec:
   ports:
   - name: "5000"
@@ -20,6 +21,7 @@ metadata:
   labels:
     service: udaconnect-api-location
   name: udaconnect-api-location
+  namespace: udaconnect
 spec:
   replicas: 1
   selector:
