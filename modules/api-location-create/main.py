@@ -13,8 +13,8 @@ class LocationServicer(location_pb2_grpc.LocationServiceServicer):
 
     def Create(self, request, context):
         TOPIC_NAME = "locations"
-        # KAFKA_SERVER = (os.getenv("KAFKA_ADDRESS") )
-        # producer = KafkaProducer(bootstrap_servers=KAFKA_SERVER)
+        KAFKA_SERVER = (os.getenv("KAFKA_ADDRESS"))
+        producer = KafkaProducer(bootstrap_servers=KAFKA_SERVER)
         print(os.getenv("KAFKA_ADDRESS"))
         request_value = {
             "person_id": request.person_id,
@@ -25,7 +25,7 @@ class LocationServicer(location_pb2_grpc.LocationServiceServicer):
 
         # this is where I want to send to kafka!
         encoded_request_value = json.dumps(request_value).encode()
-        # producer.send(TOPIC_NAME, encoded_request_value)
+        producer.send(TOPIC_NAME, encoded_request_value)
         # producer.flush()
         print(f"Message {request_value} sent to {TOPIC_NAME}")
 
