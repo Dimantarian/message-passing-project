@@ -26,7 +26,7 @@ class LocationServicer(location_pb2_grpc.LocationServiceServicer):
         # this is where I want to send to kafka!
         encoded_request_value = json.dumps(request_value).encode()
         producer.send(TOPIC_NAME, encoded_request_value)
-        # producer.flush()
+        # # producer.flush()
         print(f"Message {request_value} sent to {TOPIC_NAME}")
 
         return location_pb2.Location(**request_value)

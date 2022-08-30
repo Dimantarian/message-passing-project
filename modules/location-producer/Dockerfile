@@ -5,7 +5,5 @@ WORKDIR .
 COPY . .
 RUN pip install -r requirements.txt
 
-EXPOSE 5005
-
 COPY . .
-ENTRYPOINT ["python", "main.py"]
+ENTRYPOINT ["python", "writer.py"]

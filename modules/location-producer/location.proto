@@ -1,0 +1,12 @@
+syntax = "proto3";
+
+message Location {
+    int64 person_id = 1;
+    string longitude = 2;
+    string latitude = 3;
+}
+
+service LocationService {
+    rpc Create(Location) returns (Location);
+}
+

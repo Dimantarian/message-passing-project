@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    service: udaconnect-location-producer
+  name: udaconnect-location-producer
+  namespace: udaconnect
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      service: udaconnect-location-producer
+  template:
+    metadata:
+      labels:
+        service: udaconnect-location-producer
+    spec:
+      containers:
+      - image: gdbourne/location-producer:latest
+        name: udaconnect-location-producer
+        imagePullPolicy: Always
+      restartPolicy: Always
