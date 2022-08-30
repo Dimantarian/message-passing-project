@@ -9,4 +9,4 @@ RUN pip install -r requirements.txt
 EXPOSE 5000
 
 COPY . .
-CMD ["python", "module/api-location-create/main.py"]
+CMD ["python", "modules/api-location-create/main.py"]
