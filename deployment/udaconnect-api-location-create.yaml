@@ -7,9 +7,9 @@ metadata:
   namespace: udaconnect
 spec:
   ports:
-  - name: "5000"
-    port: 5000
-    targetPort: 5000
+  - name: "5005"
+    port: 5005
+    targetPort: 5005
     nodePort: 30010
   selector:
     service: udaconnect-api-location-create
@@ -37,11 +37,6 @@ spec:
         name: udaconnect-api-location-create
         imagePullPolicy: Always
         env:
-        - name: DB_USERNAME
-          valueFrom:
-            configMapKeyRef:
-              name: db-env
-              key: DB_USERNAME
         - name: KAFKA_ADDRESS
           valueFrom:
             configMapKeyRef:
