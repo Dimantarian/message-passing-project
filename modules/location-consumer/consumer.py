@@ -1,8 +1,6 @@
 import json
 import os
 import logging
-from datetime import datetime
-from typing import Dict
 from kafka import KafkaConsumer
 from sqlalchemy import create_engine
 from geoalchemy2.functions import ST_Point
@@ -32,15 +30,15 @@ def write_to_postgres(kafka_message):
 
     new_location = {}
     new_location['person_id'] = kafka_message["person_id"]
-    new_location['creation_time'] = datetime.utcnow
     new_location['coordinate'] = ST_Point(
         kafka_message["latitude"], kafka_message["longitude"])
 
-    # runs a transaction
+    insert = f"INSERT INTO location (person_id, coordinate) VALUES  \
+        ({new_location['person_id']}, {new_location['coordinate']})"
+    print(insert)
+
     with engine.begin() as connection:
-        connection.execute(location.insert(), {"person_id": new_location['person_id'],
-                                               "coordinate": new_location['coordinate'],
-                                               "creation_time": new_location['creation_time']})
+        connection.execute(insert)
 
 
 for message in consumer:
