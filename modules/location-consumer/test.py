@@ -48,3 +48,4 @@ conn.execute(insert)
 resafter = conn.execute(select_st).fetchall()
 
 print(f"Now there are {len(resafter)} rows")
+# just wow
