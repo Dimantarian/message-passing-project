@@ -125,3 +125,5 @@ app/app-test.db
 .ds_store
 
 *.env
+
+modules/location-consumer/test.py

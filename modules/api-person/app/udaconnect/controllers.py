@@ -10,10 +10,6 @@ DATE_FORMAT = "%Y-%m-%d"
 
 api = Namespace("UdaConnect Person", description="Retrieve or create person records")  # noqa
 
-
-# TODO: This needs better exception handling
-
-
 @api.route("/persons")
 class PersonsResource(Resource):
     @accepts(schema=PersonSchema)
