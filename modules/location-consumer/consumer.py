@@ -2,7 +2,7 @@ import json
 import os
 import logging
 from kafka import KafkaConsumer
-from sqlalchemy import create_engine
+from sqlalchemy import create_engine, MetaData
 import models
 
 logging.basicConfig(level=logging.WARNING)
@@ -21,6 +21,11 @@ KAFKA_ADDRESS = os.environ["KAFKA_ADDRESS"]
 consumer = KafkaConsumer(TOPIC_NAME, bootstrap_servers=[KAFKA_ADDRESS])
 engine = create_engine(
     f"postgresql://{DB_USERNAME}:{DB_PASSWORD}@{DB_HOST}:{DB_PORT}/{DB_NAME}", echo=True)
+metadata = MetaData()
+
+# reflect db schema to MetaData
+metadata.reflect(bind=engine)
+location = metadata.tables['location']
 
 
 def write_to_postgres(kafka_message):
@@ -33,9 +38,13 @@ def write_to_postgres(kafka_message):
     #         ST_Point({kafka_message['latitude']}, {kafka_message['longitude']}))"
     # print(insert)
 
+    insert = location.insert().values(
+        person_id=kafka_message['person_id'],
+        latitude=kafka_message['latitude'],
+        longitude=kafka_message['longitude'])
+
     with engine.begin() as connection:
-        connection.add(new_location)
-        connection.commit()
+        connection.execute(insert)
 
 
 for message in consumer:
