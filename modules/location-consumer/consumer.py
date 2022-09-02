@@ -3,7 +3,6 @@ import os
 import logging
 from kafka import KafkaConsumer
 from sqlalchemy import create_engine
-from sqlalchemy.ext.declarative import declarative_base
 import models
 
 logging.basicConfig(level=logging.WARNING)
