@@ -1,0 +1,183 @@
+{
+	"info": {
+		"_postman_id": "4f597a3d-2652-46a8-816a-85110637732c",
+		"name": "udacity-cnaf",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "15553447"
+	},
+	"item": [
+		{
+			"name": "project2",
+			"item": [
+				{
+					"name": "Location-id",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:30005/api/locations/61",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "30005",
+							"path": [
+								"api",
+								"locations",
+								"61"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "all-persons",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:30006/api/persons",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "30006",
+							"path": [
+								"api",
+								"persons"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "connections for a person",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:30007/api/persons/1/connection?start_date=2020-01-01&end_date=2020-12-30&distance=5",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "30007",
+							"path": [
+								"api",
+								"persons",
+								"1",
+								"connection"
+							],
+							"query": [
+								{
+									"key": "start_date",
+									"value": "2020-01-01"
+								},
+								{
+									"key": "end_date",
+									"value": "2020-12-30"
+								},
+								{
+									"key": "distance",
+									"value": "5"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "create-location-rest",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"person_id\": 6,\r\n    \"longitude\": \"143.361725\",\r\n    \"latitude\": \"-38.149918\",\r\n    \"creation_time\": \"2022-08-28 10:37:06\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:30005/api/locations",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "30005",
+							"path": [
+								"api",
+								"locations"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get-persons-id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:30006/api/persons/6",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "30006",
+							"path": [
+								"api",
+								"persons",
+								"6"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "create-person",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": 10,\r\n    \"first_name\": \"Guy\",\r\n    \"last_name\": \"Bourne\",\r\n    \"company_name\": \"Microsoft\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:30006/api/persons",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "30006",
+							"path": [
+								"api",
+								"persons"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

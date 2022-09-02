@@ -8,7 +8,7 @@ from typing import List
 
 DATE_FORMAT = "%Y-%m-%d"
 
-api = Namespace("UdaConnect", description="Connections via geolocation.")  # noqa
+api = Namespace("UdaConnect Person", description="Retrieve or create person records")  # noqa
 
 
 # TODO: This needs better exception handling

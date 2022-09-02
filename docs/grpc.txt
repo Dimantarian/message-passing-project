@@ -1,0 +1,20 @@
+api-location-create endpoint documentation
+
+Post requests can be made to this endpoint that conform to the following schema:
+
+```
+message Location {
+    int64 person_id = 1;
+    string longitude = 2;
+    string latitude = 3;
+}
+```
+
+An example microservice (location-producer) has been setup to generate a new location event for each person.
+This can be deployed by running the following, once all other services are live:
+
+```
+kubectl apply -f deployment/udaconnect-location-producer.yaml
+```
+
+
