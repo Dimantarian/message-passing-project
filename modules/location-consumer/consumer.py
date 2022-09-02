@@ -3,7 +3,6 @@ import os
 import logging
 from kafka import KafkaConsumer
 from sqlalchemy import create_engine
-from geoalchemy2.functions import ST_Point
 
 
 logging.basicConfig(level=logging.WARNING)
@@ -29,7 +28,8 @@ def write_to_postgres(kafka_message):
     transforms itand inserts it into the postgres database"""
 
     insert = f"INSERT INTO location (person_id, coordinate) VALUES  \
-        ({kafka_message['person_id']}, ST_Point({kafka_message['latitude']}, {kafka_message['longitude']})"
+        ({kafka_message['person_id']}, \
+            ST_Point({kafka_message['latitude']}, {kafka_message['longitude']})"
     print(insert)
 
     with engine.begin() as connection:
