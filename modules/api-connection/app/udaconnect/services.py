@@ -25,6 +25,7 @@ class ConnectionService:
         what are some ways or techniques to help make this data integrate more
         smoothly for a better user experience for API consumers?
         """
+        logger.info("Querying DB for location details")
         locations: List = db.session.query(Location).filter(
             Location.person_id == person_id
         ).filter(Location.creation_time < end_date).filter(
@@ -88,6 +89,7 @@ class ConnectionService:
 class PersonService:
     @staticmethod
     def retrieve(person_id: int) -> Person:
+        logger.info(f"Requesting data for person_id: {person_id}")
         p = requests.get(
             f"http://udaconnect-api-person:5000/api/persons/{person_id}").json()
         person = Person(p)
@@ -95,6 +97,7 @@ class PersonService:
 
     @staticmethod
     def retrieve_all() -> List[Person]:
+        logger.info(f"Requesting all person data")
         persons = requests.get(
             "http://udaconnect-api-person:5000/api/persons").json()
         person_list = [Person(p) for p in persons]

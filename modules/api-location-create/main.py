@@ -1,17 +1,24 @@
 import time
 import os
+import json
+import logging
 from concurrent import futures
 from kafka import KafkaProducer
 import grpc
-import json
+
 import location_pb2
 import location_pb2_grpc
+
+logging.basicConfig(level=logging.WARNING)
+logger = logging.getLogger("api-location-create")
 
 
 class LocationServicer(location_pb2_grpc.LocationServiceServicer):
     """Class to manage incoming requests"""
 
     def Create(self, request, context):
+        logger.info(f"Creating location from {request}")
+
         TOPIC_NAME = "locations"
         KAFKA_SERVER = (os.getenv("KAFKA_ADDRESS"))
         producer = KafkaProducer(bootstrap_servers=KAFKA_SERVER)
@@ -27,7 +34,7 @@ class LocationServicer(location_pb2_grpc.LocationServiceServicer):
         encoded_request_value = json.dumps(request_value).encode()
         producer.send(TOPIC_NAME, encoded_request_value)
         # # producer.flush()
-        print(f"Message {request_value} sent to {TOPIC_NAME}")
+        logger.info(f"Message {request_value} sent to {TOPIC_NAME}")
 
         return location_pb2.Location(**request_value)
 
