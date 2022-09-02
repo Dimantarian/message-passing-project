@@ -6,8 +6,8 @@ from typing import Dict
 from kafka import KafkaConsumer
 from sqlalchemy import create_engine
 from geoalchemy2.functions import ST_Point
-from app.models import Location
-from app.schemas import LocationSchema
+from models import Location
+from schemas import LocationSchema
 
 
 logging.basicConfig(level=logging.WARNING)
@@ -29,8 +29,7 @@ engine = create_engine(
 
 
 def write_to_postgres(kafka_message):
-    """ Validates an input against the location schema, transforms it
-    and inserts it into the postgres database"""
+    """ Validates an input against the location schema, transforms itand inserts it into the postgres database"""
 
     validation_results: Dict = LocationSchema().validate(kafka_message)
     if validation_results:
