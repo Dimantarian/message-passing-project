@@ -3,7 +3,6 @@ import os
 import logging
 from kafka import KafkaConsumer
 from sqlalchemy import create_engine, MetaData
-import models
 
 logging.basicConfig(level=logging.WARNING)
 logger = logging.getLogger("location-consumer")
@@ -32,7 +31,7 @@ def write_to_postgres(kafka_message):
     """ Validates an input against the location schema,
     transforms itand inserts it into the postgres database"""
 
-    new_location = models.Location(kafka_message)
+    # new_location = models.Location(kafka_message)
     # insert = f"INSERT INTO {models.Location} (person_id, coordinate) VALUES  \
     #     ({kafka_message['person_id']}, \
     #         ST_Point({kafka_message['latitude']}, {kafka_message['longitude']}))"
