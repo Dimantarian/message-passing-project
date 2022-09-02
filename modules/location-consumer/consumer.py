@@ -6,8 +6,6 @@ from typing import Dict
 from kafka import KafkaConsumer
 from sqlalchemy import create_engine
 from geoalchemy2.functions import ST_Point
-from models import Location
-from schemas import LocationSchema
 
 
 logging.basicConfig(level=logging.WARNING)
@@ -32,27 +30,21 @@ def write_to_postgres(kafka_message):
     """ Validates an input against the location schema,
     transforms itand inserts it into the postgres database"""
 
-    validation_results: Dict = LocationSchema().validate(kafka_message)
-    if validation_results:
-        logger.warning(
-            f"Unexpected data format in payload: {validation_results}")
-        raise Exception(f"Invalid payload: {validation_results}")
-
-    new_location = Location()
-    new_location.person_id = kafka_message["person_id"]
-    new_location.creation_time = datetime.utcnow
-    new_location.coordinate = ST_Point(
+    new_location = {}
+    new_location['person_id'] = kafka_message["person_id"]
+    new_location['creation_time'] = datetime.utcnow
+    new_location['coordinate'] = ST_Point(
         kafka_message["latitude"], kafka_message["longitude"])
 
     # runs a transaction
     with engine.begin() as connection:
-        connection.execute(Location.insert(), {"person_id": new_location.person_id,
-                                               "coordinate": new_location.coordinate,
-                                               "creation_time": new_location.creation_time})
+        connection.execute(location.insert(), {"person_id": new_location['person_id'],
+                                               "coordinate": new_location['coordinate'],
+                                               "creation_time": new_location['creation_time']})
 
 
-for location in consumer:
-    message = location.value.decode('utf-8')
-    logger.info(f'Processing "{message}"')
-    location_message = json.loads(message)
+for message in consumer:
+    decoded_message = message.value.decode('utf-8')
+    logger.info(f'Processing "{decoded_message}"')
+    location_message = json.loads(decoded_message)
     write_to_postgres(location_message)
