@@ -1,8 +1,7 @@
-import json
+
 import os
 import logging
-from kafka import KafkaConsumer
-from sqlalchemy import create_engine, MetaData, Table, select
+from sqlalchemy import create_engine, MetaData, select
 
 logging.basicConfig(level=logging.WARNING)
 logger = logging.getLogger("location-consumer")
