@@ -1,0 +1,26 @@
+frontent
+Maintain separation of frontend functionality
+
+api-connection
+Connection has bespoke logic that relies on a connection to the database, and simple person data. By creating a separate microservice we allow for changes to the logic independently from the person api.
+
+api-location
+This has had the create functionality removed (see api-location-create). Rather than delete the microservice it has been kept active in case we want to extend or consume it for other purposes post MVP
+
+api-person
+api-person has been created a as separate microservice for separation of logic. It also provides functionality that may be useful externally to the app, such as marketing or sales post event; to facilitate ease of access this has bee maintained as a rest api. Separating the create functionality was considered a low priority for the MVP phase due to relatively low volume/velocity of person data.
+
+api-location-create
+The api-location-create api was separated from the get requests due to the anticipated volume of calls. High volume / velocity location data received from devices could put the system under strain, hence has been separated out to allow for independent scaling. gRPC was chosen as the messaging protocol for better performance, with flexibility being a lower concern as we expect to receive mostly device to api calls and can be explicit in our message format.
+
+location-producer
+This was a testing service
+
+location-consumer
+This console application monitors the kafka locations topic foir newly created locations which are then passed to the database.
+
+postgres
+The webapps primary data store
+
+kafka
+Message queue added as a buffer for high volume and high velocity location data
