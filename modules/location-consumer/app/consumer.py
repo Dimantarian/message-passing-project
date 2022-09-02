@@ -29,7 +29,7 @@ engine = create_engine(
 
 
 def write_to_postgres(kafka_message):
-    """ Validates an input against the location schema, transforms it 
+    """ Validates an input against the location schema, transforms it
     and inserts it into the postgres database"""
 
     validation_results: Dict = LocationSchema().validate(kafka_message)
