@@ -29,7 +29,7 @@ def write_to_postgres(kafka_message):
 
     insert = f"INSERT INTO location (person_id, coordinate) VALUES  \
         ({kafka_message['person_id']}, \
-            ST_Point({kafka_message['latitude']}, {kafka_message['longitude']})"
+            ST_Point({kafka_message['latitude']}, {kafka_message['longitude']}))"
     print(insert)
 
     with engine.begin() as connection:
