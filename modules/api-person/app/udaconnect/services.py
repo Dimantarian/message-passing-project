@@ -30,5 +30,5 @@ class PersonService:
 
     @staticmethod
     def retrieve_all() -> List[Person]:
-        logger.info(f"Retrieving all registered attendees")
+        logger.info("Retrieving all registered attendees")
         return db.session.query(Person).all()

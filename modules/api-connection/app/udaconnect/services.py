@@ -97,7 +97,7 @@ class PersonService:
 
     @staticmethod
     def retrieve_all() -> List[Person]:
-        logger.info(f"Requesting all person data")
+        logger.info("Requesting all person data")
         persons = requests.get(
             "http://udaconnect-api-person:5000/api/persons").json()
         person_list = [Person(p) for p in persons]
