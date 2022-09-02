@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    service: udaconnect-location-consumer
+  name: udaconnect-location-consumer
+  namespace: udaconnect
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      service: udaconnect-location-consumer
+  template:
+    metadata:
+      labels:
+        service: udaconnect-location-consumer
+    spec:
+      containers:
+      - image: gdbourne/location-consumer:latest
+        name: udaconnect-location-consumer
+        imagePullPolicy: Always
+      restartPolicy: Always
