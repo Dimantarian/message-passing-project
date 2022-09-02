@@ -27,13 +27,15 @@ def write_to_postgres(kafka_message):
     """ Validates an input against the location schema,
     transforms itand inserts it into the postgres database"""
 
-    insert = f"INSERT INTO {models.Location} (person_id, coordinate) VALUES  \
-        ({kafka_message['person_id']}, \
-            ST_Point({kafka_message['latitude']}, {kafka_message['longitude']}))"
-    print(insert)
+    new_location = models.Location(kafka_message)
+    # insert = f"INSERT INTO {models.Location} (person_id, coordinate) VALUES  \
+    #     ({kafka_message['person_id']}, \
+    #         ST_Point({kafka_message['latitude']}, {kafka_message['longitude']}))"
+    # print(insert)
 
     with engine.begin() as connection:
-        connection.execute(insert)
+        connection.add(new_location)
+        connection.commit()
 
 
 for message in consumer:
