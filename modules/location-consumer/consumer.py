@@ -1,8 +1,10 @@
 import json
 import os
 import logging
+from datetime import datetime
 from kafka import KafkaConsumer
 from sqlalchemy import create_engine, MetaData
+from geoalchemy2.functions import ST_Point
 
 logging.basicConfig(level=logging.WARNING)
 logger = logging.getLogger("location-consumer")
@@ -10,12 +12,13 @@ logger = logging.getLogger("location-consumer")
 TOPIC_NAME = "locations"
 logger.info(f'Consumer listening to "{TOPIC_NAME}" topic')
 
+KAFKA_ADDRESS = os.environ["KAFKA_ADDRESS"]
 DB_USERNAME = os.environ["DB_USERNAME"]
 DB_PASSWORD = os.environ["DB_PASSWORD"]
 DB_HOST = os.environ["DB_HOST"]
 DB_PORT = os.environ["DB_PORT"]
 DB_NAME = os.environ["DB_NAME"]
-KAFKA_ADDRESS = os.environ["KAFKA_ADDRESS"]
+
 
 consumer = KafkaConsumer(TOPIC_NAME, bootstrap_servers=[KAFKA_ADDRESS])
 engine = create_engine(
@@ -39,8 +42,10 @@ def write_to_postgres(kafka_message):
 
     insert = location.insert().values(
         person_id=kafka_message['person_id'],
-        latitude=kafka_message['latitude'],
-        longitude=kafka_message['longitude'])
+        creation_time=datetime.utcnow,
+        coordinate=ST_Point(
+            kafka_message['latitude'], kafka_message['longitude'])
+    )
 
     with engine.begin() as connection:
         connection.execute(insert)
