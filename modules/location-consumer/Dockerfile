@@ -7,4 +7,4 @@ COPY . .
 RUN pip install -r requirements.txt
 
 COPY . .
-ENTRYPOINT ["python", "./app/consumer.py"]
+ENTRYPOINT ["python", "consumer.py"]
